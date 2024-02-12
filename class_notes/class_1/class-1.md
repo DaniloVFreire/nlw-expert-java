@@ -51,3 +51,42 @@
 ### MVC(Model View Controller)
 
 - ![alt text](nlw-java-mvc-excalidraw.png)
+  - Usuário acessa a view pela rota "/alguma-rota"
+  - A view chamaria a controller que teria toda a lógica de negócios
+  - A controller chamaria o model para recuperar os dados
+  - Retornando assim o fluxo de dados para a view
+
+### Spring Boot
+
+- A aplicação usa controllers para retornar páginas e rest controllers para retornar json e comunicar entre apis
+- A class controller tem que ter o mesmo nome do arquivo que contém ela
+- O spring boot simplifica as dependências e para isso sempre usa o package espelhando a rota das pastas; EX: `com.rocketseat.certification_nlw` é um espelho de `/com/rocketseat/certification_nlw`. O espelhamento serve para facilitar o escaneamento do spring nos arquivos e gerenciar as dependências do projeto.
+- Adicionar `@RestController` acima de uma classe já define que a mesma retornará json e funcionará como uma api rest
+- Adicionar o anotator na classe controller `@RequestMapping("/rota")` no controller para definir a rota para acessar essa controller
+- Adicionar o anotator `@GetMapping("/subRota")` em um metodo dentro da controller adiciona uma rota ao path definido na anotator `@RequestMapping("/rota")` gerando no final: `/rota/subRota` e define que a mesma funcionara como um método GET
+- a partir da versão 10 do java não é necessário tipar variáveis na instaciação de uma classe, pois o tipo pode ser inferido, podendo assim ser usaro a palavra reservada `var`
+- Para retornar um objeto como json basta o adicionar como retorno de um método de uma classe com o anotator `@RestController`
+- Para fazer um post basta adicionar o anotator `@PostMapping("/meuPrimeiroPost")`
+
+### methods/verbs rest
+
+- GET: Buscar informações
+- POST: Inserir informações
+- PUT: Alterar dados
+- DELETE: Deletar dados
+- PATCH: Alterar parcialmente dados
+
+#### Tipos de parâmetros:
+
+- Body: corpo da requisição; `Body:{}`, geralmente para: Post, Put, Patch
+- Query: consulta da requisição; `http://localhost:8085/rota?parametro=valor` OPCIONAIS
+- Parametros de rota: cabecalhos da requisição `http://localhost:8085/rota/{parametro}/{parametro2}` OBRIGATÓRIO
+- Headers: cabecalhos da requisição
+- Cookies: cookies da requisição
+- Path: rota da requisição;
+
+- Post não pode ser requisitado pela rota de navegação do navegador pois a mesma por padrão é um get e para testar um post é necessário um Rest Client como httpie
+
+## Overview do conteúdo da aplicação:
+
+-![Overvies das funcionalidades da aplicação](nlw-expert-java-api-quiz-certificate.png)
