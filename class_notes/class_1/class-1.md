@@ -90,3 +90,37 @@
 ## Overview do conteúdo da aplicação:
 
 -![Overvies das funcionalidades da aplicação](nlw-expert-java-api-quiz-certificate.png)
+
+## Utilizando Loombok:
+
+- Adicionando os anotators `@Getter` e `@Setter` para gerar os getters ou setters automaticamente ou `@Data` para gerar ambos, sendo eles no parametro ou na classe;
+- Adicionando os anotators `@AllArgsConstructor` e `@NoArgsConstructor` para gerar os construtores automaticamente, sendo eles com todas as propriedades da classe ou com nenhuma;
+
+## Utilizando DTO's
+
+- Para receber informações do body da requisição na controller em casos onde nenhum dos objetos contém todos os dados da requisição, então criamos um DTO contendo a informação que a gente quer apenas para definirmos para o java o que receberemos da requisição;
+
+## Use cases e camada de serviço
+
+- adicionar o anotator `@Service` a classe que contém a camada de serviço
+- Ao importar e chamar a classe `@Service` o spring vai gerar automaticamente um construtor e um mecanismo de injecão de dependência, precisando apenas setar uma variável e um import como em:
+
+```Java
+public class StudentController {
+  // Chamar o usecase
+  @Autowired
+  private VerifyIfHasCertificationUseCase verifyIfHasCertificationUseCase;
+
+  @PostMapping("/verifyIfHasCertification")
+  public String verifyIfHasCerfitication(@RequestBody VerifyHasCertificationDTO verifyHasCertificationDTO) {
+    // Email
+    // Technology
+    var result = this.verifyIfHasCertificationUseCase.execute(verifyHasCertificationDTO);
+    if (result) {
+      return "Usuário já fez a prova";
+    }
+    System.out.println(verifyHasCertificationDTO);// verifyIfHasCerfitication(verifyHasCertificationDTO)
+    return "Usuário pode fazer a prova";
+  }
+}
+```
