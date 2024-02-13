@@ -51,4 +51,12 @@ fonte: [Connecting to Postgresql in a docker container from outside](https://sta
 
 ### Relacionamentos entre tabelas:
 
-- adicionando os anotators @ManyToOne, @OneToMany, @manyToMany e @OneToOne em um
+- adicionando os anotators @ManyToOne, @OneToMany, @manyToMany e @OneToOne em um parametro de uma classe e em outro de outra classe que está se relacionando com a mesma e adicionando o @mappedby para o relacionamento
+- Após a criação do relacionamento, o Hibernate irá criar uma tabela na base de dados com a nova coluna que foi criada
+- É recomendado remover tabelas que foram geradas no processo de execução do programa quando utilizado o: `spring.jpa.hibernate.ddl-auto=update` dentro do arquivo `application.properties`
+
+## Camada repositorio(repository):
+
+- ORM (Object Relational Mapping) - Mapeamento de objetos em tabelas
+- Camada repository - Interagir com o banco de dados
+- Para o spring indentificar que a interface criada é um repository basta usar o anotator:`@Repository`

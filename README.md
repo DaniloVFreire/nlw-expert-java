@@ -8,6 +8,7 @@ Projeto desenvolvido durante o NLW 14 (Next Level Week) na trilha Expert java, c
 - [Maven](https://maven.apache.org/download.cgi) (gerenciador de pacotes)
   - [maven repository(repositório de pacotes maven)](https://mvnrepository.com/)
 - Docker(para rodar o postgres conteinerizado)
+  - docker-compose
 - Postgres(Banco de dados)
 - Rest Client(opções):
   - [Httpie](http://httpie.io/desktop)
@@ -33,3 +34,10 @@ Projeto desenvolvido durante o NLW 14 (Next Level Week) na trilha Expert java, c
 ## Anotação das aulas:
 
 - [Index de anotação das aulas](class_notes/general-class-index.md)
+
+## Rodando aplicação:
+
+```bash
+docker-compose up -d
+mvn spring-boot:run
+```
