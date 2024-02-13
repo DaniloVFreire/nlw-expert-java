@@ -25,3 +25,30 @@
       - ![adicionando postgres](add-maven-pkg-postgres-vscode.png)
 
 ## Criando docker compose para postgres:
+
+- [imagem oficial e documentação do postgresql](https://hub.docker.com/_/postgres)
+- [Tutorial de como configurar um docker compose para postgres](https://commandprompt.com/education/how-to-install-postgresql-using-docker-compose/)
+- Conectar no pqsl em um container docker:
+
+```bash
+docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                     NAMES
+05b3a3471f6f        postgres            "/docker-entrypoint.s"   1 seconds ago       Up 1 seconds        0.0.0.0:5432->5432/tcp    some-postgres
+```
+
+```bash
+docker exec -it <containerID> bash
+root@05b3a3471f6f:/# psql -U postgres
+postgres-# CREATE DATABASE mytest;
+postgres-# \q
+```
+
+fonte: [Connecting to Postgresql in a docker container from outside](https://stackoverflow.com/questions/37694987/connecting-to-postgresql-in-a-docker-container-from-outside)
+
+- Tutorial de uso do postgres:
+  - [PostgreSQL Tutorial](https://www.postgresqltutorial.com/)
+  - [Top psql commands and flags you need to know | PostgreSQL](https://hasura.io/blog/top-psql-commands-and-flags-you-need-to-know-postgresql/)
+
+### Relacionamentos entre tabelas:
+
+- adicionando os anotators @ManyToOne, @OneToMany, @manyToMany e @OneToOne em um
