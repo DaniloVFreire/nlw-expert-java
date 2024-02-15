@@ -11,3 +11,4 @@ public class VerifyHasCertificationDTO {
   private String email;
   private String technology;
 }
+// ok
