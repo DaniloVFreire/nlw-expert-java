@@ -13,6 +13,11 @@ public class CreateSeed {
   private final JdbcTemplate jdbcTemplate;
 
   public CreateSeed(DataSource datasource) {
+    if (datasource == null) {
+      System.out.println("Datasource não instanciado por ser nulo");
+      this.jdbcTemplate = new JdbcTemplate();
+      return;
+    }
     this.jdbcTemplate = new JdbcTemplate(datasource);
   }
 
@@ -24,7 +29,7 @@ public class CreateSeed {
     dataSource.setPassword("admin");
 
     CreateSeed createSeed = new CreateSeed(dataSource);
-    createSeed.run(args)
+    createSeed.run(args);
   }
 
   public void run(String... args) {
@@ -33,9 +38,11 @@ public class CreateSeed {
 
   private void executeSqlFile(String filePath) {
     try {
-      String sql = new String(Files.readAllBytes(Paths.get(filePath)));
+      String sqlScript = new String(Files.readAllBytes(Paths.get(filePath)));
+      jdbcTemplate.execute(sqlScript);
+      System.out.println("Seed realizado com sucesso");
     } catch (IOException e) {
-      // TODO: handle exception
+      System.out.println("Erro ao exercutar arquivo" + e.getMessage());
     }
   }
 }
