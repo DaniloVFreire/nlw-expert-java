@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "alternatives")
+@Data
 public class AlternativesEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
