@@ -1,14 +1,12 @@
-package com.rocketseat.certification_nlw.modules.students.useCases;
+package com.rocketseat.certification_nlw.modules.questions.repositories;
 
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.rocketseat.certification_nlw.modules.questions.entities.QuestionEntity;
+import java.util.List;
 
 public interface QuestionRepository extends JpaRepository<QuestionEntity, UUID> {
-
-  public List<QuestionEntity> findByTechnology(String technology);
-
+  List<QuestionEntity> findByTechnology(String technology);
 }
