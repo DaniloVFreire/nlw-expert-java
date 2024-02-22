@@ -3,12 +3,14 @@ package com.rocketseat.certification_nlw.modules.students.useCases;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.rocketseat.certification_nlw.modules.questions.entities.QuestionEntity;
 import com.rocketseat.certification_nlw.modules.students.dto.StudentCertificationAnswerDTO;
+import com.rocketseat.certification_nlw.modules.students.dto.VerifyHasCertificationDTO;
 import com.rocketseat.certification_nlw.modules.students.entities.AnswersCertificationsEntity;
 import com.rocketseat.certification_nlw.modules.students.entities.CertificationStudentEntity;
 import com.rocketseat.certification_nlw.modules.students.entities.StudentEntity;
@@ -26,11 +28,21 @@ public class StudentCertificationAnswersUseCase {
   @Autowired
   private CertificationStudentRepository certificationStudentRepository;
 
-  public CertificationStudentEntity execute(StudentCertificationAnswerDTO dto) {
+  @Autowired
+  private VerifyIfHasCertificationUseCase verifyIfHasCertificationUseCase;
+
+  public CertificationStudentEntity execute(StudentCertificationAnswerDTO dto) throws Exception {
+
+    var hasCertification = this.verifyIfHasCertificationUseCase
+        .execute(new VerifyHasCertificationDTO(dto.getEmail(), dto.getTechnology()));
+    if (hasCertification) {
+      throw new Exception("você já realizou a certificação previamente");
+    }
     // Buscar alternativas das perguntas
     // Para saber se é a corretas
     List<QuestionEntity> questionsEntitiy = questionRepository.findByTechnology(dto.getTechnology());
     List<AnswersCertificationsEntity> answersCertifications = new ArrayList<>();
+    AtomicInteger correctAnswers = new AtomicInteger(0);
 
     dto.getQuestionsAnswers()
         .stream().forEach(questionAnswer -> {
@@ -43,6 +55,7 @@ public class StudentCertificationAnswersUseCase {
 
           if (findCorrectAlternative.getId().equals(questionAnswer.getAlternativeID())) {
             questionAnswer.setCorrect(true);
+            correctAnswers.incrementAndGet();
           } else {
             questionAnswer.setCorrect(false);
           }
@@ -67,6 +80,7 @@ public class StudentCertificationAnswersUseCase {
     CertificationStudentEntity certificationStudentEntity = CertificationStudentEntity.builder()
         .technology(dto.getTechnology())
         .studentID(studentID)
+        .grade(correctAnswers.get())
         .build();
 
     // Salvar as informaçoes da certificação

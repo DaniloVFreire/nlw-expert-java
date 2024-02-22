@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -39,7 +40,7 @@ public class CertificationStudentEntity {
   @Column(length = 10)
   private int grade;
 
-  @JoinColumn(name = "student_id")
+  @Column(name = "student_id")
   private UUID studentID;
 
   @ManyToOne

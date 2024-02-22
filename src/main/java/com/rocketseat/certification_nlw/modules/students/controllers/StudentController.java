@@ -1,6 +1,7 @@
 package com.rocketseat.certification_nlw.modules.students.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,8 +35,14 @@ public class StudentController {
   }
 
   @PostMapping("/certification/answer")
-  public CertificationStudentEntity certificationAnswer(
-      @RequestBody StudentCertificationAnswerDTO studentCertificationAnswerDTO) {
-    return this.studentCertificationAnswersUseCase.execute(studentCertificationAnswerDTO);
+  public ResponseEntity<Object> certificationAnswer(
+      @RequestBody StudentCertificationAnswerDTO studentCertificationAnswerDTO) throws Exception {
+    try {
+      var result = this.studentCertificationAnswersUseCase.execute(studentCertificationAnswerDTO);
+      return ResponseEntity.ok().body(result);
+    } catch (Exception e) {
+      // é similar à escrever: responseEntity.status(400)
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
   }
 }// ok

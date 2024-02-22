@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +33,7 @@ public class StudentEntity {
   private String email;
 
   @OneToMany(mappedBy = "studentEntity")
+  @JsonBackReference
   private List<CertificationStudentEntity> certificationStudentEntity;
 
   @CreationTimestamp
